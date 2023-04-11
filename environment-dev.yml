@@ -1,18 +1,28 @@
-name: ptt
+name: ptt-dev
 channels:
   - conda-forge
 dependencies:
   - python=3.9
+  - black
   - cartopy
+  - codecov
+  - cython
+  - hvplot
+  - flake8
   - geopandas
   - geoviews
   - geopy
-  - hvplot
   - matplotlib
   - movingpandas
   - numpy
   - pandas
+  - panel
+  - pre-commit
   - pyproj
+  - pytest
+  - pytest-cov
+  - rasterio
+  - scikit-learn
   - seaborn
   - shapely
   - stonesoup
