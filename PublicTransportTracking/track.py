@@ -5,7 +5,7 @@ Created on Thu Apr  6 17:54:13 2023
 
 @author: Breandán Anraoi MacGabhann
 
-Based on MovingPandas by Anita Graser and others,
+Adapted from Anita Graser's MovingPandas,
 which is Copyright (c) 2018-2023, MovingPandas developers
 
 """
@@ -82,4 +82,27 @@ class Track(Trajectory):
     
     def __len__(self):
         return self.get_length()
+    
+    def tplot(self, stops):
 
+        """
+        
+        Parameters
+        ----------
+        stops : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
+        
+        stops = gpd.read_file(stops)
+        #_TrajectoryPlotter(self, *args, **kwargs).hvplot()
+        tplot1 = self._TrajectoryPlotter(c='speed_kph', clim=(0,60), line_width=7.0, x='Longitude', y='Latitude', title='302 Tuesday 2023-02-28 17:07', tiles='CartoLight', clabel='Speed (km/h)', cmap='RdYlGn', colorbar=True).hvplot()
+        tplot2 = stops._TrajectoryPlotter(geo=True, size=3, color='blue').hvplot()
+        tplots = tplot1 * tplot2
+        hvplot.save(tplots, test.png)
+        return tplots
+        
