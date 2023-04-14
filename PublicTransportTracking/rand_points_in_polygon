@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 12 20:40:48 2023
+
+@author: breandan
+"""
+
+import numpy as np
+import geopandas as gpd
+from shapely.geometry import Point
+
+def generate_points(gdf):
+    points_list = []
+    for index, row in gdf.iterrows():
+        pop = row['Pop']
+        multipoly = row['geometry']
+        points = []
+        while len(points) < pop:
+            point = Point(np.random.uniform(multipoly.bounds[0], multipoly.bounds[2]), 
+                          np.random.uniform(multipoly.bounds[1], multipoly.bounds[3]))
+            if multipoly.contains(point):
+                points.append(point)
+        points_list.append(points)
+    return points_list
+
+
+
+
+import osmnx as ox
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point
+
+def count_points_within_network(gs1, gs2, network_type='walk', speed_kmh=5, travel_time=5):
+    """
+    Given two GeoSeries of points: gs1, which has a column for time; and gs2, which just has point geometry;
+    returns a GeoDataFrame that calculates how many points in gs2 are within the network of a specified walking
+    time around each point in gs1, for each point and time in gs1.
+    
+    Parameters:
+    -----------
+    gs1 : GeoSeries
+        A GeoSeries of points which includes a column for time.
+    gs2 : GeoSeries
+        A GeoSeries of points which does not include a column for time.
+    network_type : str
+        The network type to use for routing. Default is 'walk'.
+    speed_kmh : int or float
+        The average walking speed in km/h. Default is 5 km/h.
+    travel_time : int or float
+        The walking time in minutes. Default is 5 minutes.
+    
+    Returns:
+    --------
+    result : GeoDataFrame
+        A GeoDataFrame that calculates how many points in gs2 are within the network of a specified walking
+        time around each point in gs1, for each point and time in gs1.
+    """
+    
+    # Create a new GeoDataFrame with the point coordinates from gs1
+    gdf1 = gpd.GeoDataFrame(geometry=gs1)
+    
+    # Convert the coordinate reference system of the GeoDataFrames to the same as the network graph
+    gdf1 = gdf1.to_crs(ox.settings.default_crs)
+    gs2 = gs2.to_crs(ox.settings.default_crs)
+    
+    # Calculate the network of a specified walking time around each point in gs1
+    graph = ox.graph_from_point(gdf1.iloc[0]['geometry'], network_type=network_type)
+    for i in range(1, len(gdf1)):
+        graph = ox.graph_from_point(gdf1.iloc[i]['geometry'], network_type=network_type, 
+                                    distance=travel_time*speed_kmh*1000, 
+                                    network=graph, clean_periphery=True)
+    
+    # Convert the network graph to a GeoDataFrame
+    edges = ox.graph_to_gdfs(graph, nodes=False, edges=True)
+    
+    # Create a buffer around the edges to represent the network
+    network = edges.geometry.buffer(1)
+    
+    # Create a new GeoDataFrame with the point coordinates from gs2
+    gdf2 = gpd.GeoDataFrame(geometry=gs2)
+    
+    # Calculate how many points in gs2 are within the network for each point and time in gs1
+    results = []
+    for i in range(len(gdf1)):
+        time = gdf1.iloc[i]['time']
+        polygon = network.buffer(travel_time*time)
+        count = gdf2.intersects(polygon).sum()
+        results.append({'geometry':gdf1.iloc[i]['geometry'], 'time':time, 'count':count})
+    
+    # Convert the results to a GeoDataFrame
+    result = gpd.GeoDataFrame(pd.DataFrame(results))
+    result = result.set_geometry('geometry')
+    
+    # Convert the coordinate reference system of the GeoDataFrame back to the same as gs1 and gs2
+    result = result.to_crs(gs1.crs)
+    
+    return result

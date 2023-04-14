@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr 13 12:49:06 2023
+
+@author: breandan
+"""
+
+import requests
+from shapely.geometry import Point, LineString
+
+point = Point(-8.626151, 52.665191)
+
+def get_traffic_conditions(point):
+    # Get the nearest road to the given point using the Google Maps API
+    snap_url = 'https://roads.googleapis.com/v1/snapToRoads'
+    params = {
+        'path': f'{point.y},{point.x}',
+        'interpolate': 'true',
+        'key': 'AIzaSyDUUAGnxpEgbBCWLOwoApi4_yqozbqyUfY'
+    }
+    snap_response = requests.get(snap_url, params=params).json()
+
+    # Get the traffic conditions along the road using the Google Maps API
+    if 'snappedPoints' in snap_response:
+        point = snap_response['snappedPoints'][0]['location']
+        directions_url = 'https://maps.googleapis.com/maps/api/directions/json'
+        params = {
+            'origin': f'{point["latitude"]},{point["longitude"]}',
+            'destination': f'{point["latitude"]},{point["longitude"]}',
+            'mode': 'driving',
+            'traffic_model': 'best_guess',
+            'key': 'AIzaSyDUUAGnxpEgbBCWLOwoApi4_yqozbqyUfY'
+        }
+        directions_response = requests.get(directions_url, params=params).json()
+
+        # Extract the traffic conditions from the directions response
+        if 'routes' in directions_response and len(directions_response['routes']) > 0:
+            route = directions_response['routes'][0]
+            traffic_speed = []
+            for leg in route['legs']:
+                for step in leg['steps']:
+                    for segment in step['segments']:
+                        if 'duration_in_traffic' in segment:
+                            speed = segment['distance']['value'] / segment['duration_in_traffic']['value']
+                            traffic_speed.append(speed)
+            if len(traffic_speed) > 0:
+                return sum(traffic_speed) / len(traffic_speed)
+                print(sum)
+    return None
