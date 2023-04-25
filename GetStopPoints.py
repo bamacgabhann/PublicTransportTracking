@@ -7,13 +7,15 @@ Created on Tue Apr 25 20:01:10 2023
 """
 
 import movingpandas as mpd
+from movingpandas.trajectory_utils import convert_time_ranges_to_segments
 from geopandas import GeoDataFrame
 from shapely import Point
 
 class TrajectoryStopDetectorPlus(mpd.TrajectoryStopDetector):
     
     def __init__(self, traj):
-        super().__init__(self, traj)
+        #self.traj = traj
+        super().__init__(traj)
     
     def get_stop_points_as_int(self, max_diameter, min_duration):
         """
@@ -41,7 +43,7 @@ class TrajectoryStopDetectorPlus(mpd.TrajectoryStopDetector):
         """
         stop_time_ranges = self.get_stop_time_ranges(max_diameter, min_duration)
         stops = mpd.TrajectoryCollection(
-            mpd.TrajectoryStopDetector.convert_time_ranges_to_segments(self.traj, stop_time_ranges)
+            convert_time_ranges_to_segments(self.traj, stop_time_ranges)
         )
 
         stop_pts = GeoDataFrame(columns=["geometry"]).set_geometry("geometry")
