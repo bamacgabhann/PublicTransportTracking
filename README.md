@@ -13,6 +13,6 @@ A second folder 'PNG' contains some PNG outputs of holoviews plots for these GPX
 
 Run in Binder:
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/main?labpath=ptt.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/mpd_stop_points?labpath=ptt.ipynb)
 
 A much more complete package for analysis is in development.
