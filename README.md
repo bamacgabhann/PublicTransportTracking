@@ -1,3 +1,6 @@
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
+
 # PublicTransportTracking
 
 Using GPX tracks of public transport journeys to analyse a public transport network
@@ -8,6 +11,8 @@ The folder 'GPX' contains GPX tracks for some bus journeys in Limerick, Belfast,
 
 A second folder 'PNG' contains some PNG outputs of holoviews plots for these GPX tracks.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/tree/main/main?labpath=https%3A%2F%2Fgithub.com%2Fbamacgabhann%2FPublicTransportTracking%2Fblob%2Fmain%2Fptt.ipynb)
+Run in Binder:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/main?labpath=https%3A%2F%2Fgithub.com%2Fbamacgabhann%2FPublicTransportTracking%2Fblob%2Fmain%2Fptt.ipynb)
 
 A much more complete package for analysis is in development.
