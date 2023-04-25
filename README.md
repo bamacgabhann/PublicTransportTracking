@@ -8,4 +8,6 @@ The folder 'GPX' contains GPX tracks for some bus journeys in Limerick, Belfast,
 
 A second folder 'PNG' contains some PNG outputs of holoviews plots for these GPX tracks.
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/tree/main/main?labpath=https%3A%2F%2Fgithub.com%2Fbamacgabhann%2FPublicTransportTracking%2Fblob%2Fmain%2Fptt.ipynb)
+
 A much more complete package for analysis is in development.
