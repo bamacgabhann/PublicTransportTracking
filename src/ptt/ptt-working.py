@@ -3,9 +3,6 @@ import movingpandas as mpd
 import hvplot.pandas
 from datetime import datetime, timedelta
 
-import shapely as shp
-import matplotlib.pyplot as plt
-
 from shapely.geometry import Point, LineString, Polygon
 from holoviews import opts
 
