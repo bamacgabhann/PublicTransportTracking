@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "publictransporttracking"
+version = "0.1.0"
+description = "Package for transport geography analysis of public transport routes using timestamped GPS tracks of journeys"
+authors = ["bamacgabhann <127785144+breandan.macgabhann@users.noreply.github.com>"]
+license = "BSD 3-clause license"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+movingpandas = "^0.17.2"
+hvplot = "^0.9.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+flake8 = "^6.1.0"
+ipykernel = "^6.27.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
