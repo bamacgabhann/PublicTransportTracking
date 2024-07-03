@@ -1,13 +1,12 @@
 # PublicTransportTracking
 
-Using GPX tracks of public transport journeys to analyse a public transport network
+Using GPX tracks of public transport journeys to analyse a public transport network.
 
-Currently, a short Jupyter Notebook contains code to take a GPX file, and a geopackage with bus stop locations as points; and returns an interactive holoviews plot showing the journey colour-coded by speed in kilometres per hour, with stationary periods of more than 15 seconds within a 30m diameter circle shown as pink circles, and bus stop locations shown as blue + symbols. A list of all stationary periods mapped can also be produced.
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/summerschool?labpath=ptt.ipynb) <a href="https://colab.research.google.com/github/bamacgabhann/PublicTransportTracking/blob/summerschool/ptt.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-The folder 'GPX' contains GPX tracks for some bus journeys in Limerick, Belfast, and Basel.
+Currently, a Jupyter Notebook contains code to take a GPX file, and other data such as bus stop locations; and returns both static and interactive plots showing the journey colour-coded by speed in kilometres per hour, with stationary periods of more than 15 seconds within a 30m diameter circle shown as pink circles, and bus stop locations shown as blue + symbols. A list of all stationary periods mapped can also be produced.
 
-A second folder 'PNG' contains some PNG outputs of holoviews plots for these GPX tracks.
+The folder 'GPX' contains GPX tracks for some bus journeys in Limerick, Belfast, and Basel, as well as Carlow.
 
-A much more complete package for analysis is in development.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bamacgabhann/PublicTransportTracking/fyp?labpath=ptt.ipynb)
+
