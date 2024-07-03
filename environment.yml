@@ -17,6 +17,7 @@ dependencies:
   - matplotlib
   - movingpandas
   - networkx
+  - osmnx
   - numpy
   - osmnx
   - pandas

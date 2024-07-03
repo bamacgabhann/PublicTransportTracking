@@ -32,6 +32,8 @@ geographiclib = "1.52"
 numpy = "^1.26.2"
 bokeh = "2.4.3"
 panel = "0.14.4"
+osmnx = "^1.9.3"
+pyarrow = "^16.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
